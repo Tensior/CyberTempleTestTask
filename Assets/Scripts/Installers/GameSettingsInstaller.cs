@@ -7,11 +7,11 @@ namespace Installers
     [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/GameSettingsInstaller")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
-        public Settings _settings;
+        public GameSettings _gameSettings;
     
         public override void InstallBindings()
         {
-            Container.BindInstances(_settings);
+            Container.BindInstances(_gameSettings);
         }
     }
 }

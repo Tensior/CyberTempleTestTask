@@ -49,9 +49,9 @@ namespace Core
         }
 
         [Inject]
-        private void Inject(Settings settings)
+        private void Inject(GameSettings gameSettings)
         {
-            _velocity = settings.BallVelocity;
+            _velocity = gameSettings.BallVelocity;
         }
     }
 }

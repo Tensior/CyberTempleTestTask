@@ -1,4 +1,5 @@
 using Core;
+using UnityEngine;
 using Zenject;
 
 namespace Installers
@@ -9,6 +10,7 @@ namespace Installers
         {
             Container.Bind<Player>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<Camera>().FromComponentInHierarchy().AsSingle().NonLazy();
         }
     }
 }

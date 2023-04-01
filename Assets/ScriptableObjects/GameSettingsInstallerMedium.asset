@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb9ef121f3c01b46b0ecc3b7eb713a2, type: 3}
   m_Name: GameSettingsInstallerMedium
   m_EditorClassIdentifier: 
-  _settings:
+  _gameSettings:
     PathWidth: 2
     BallVelocity: 3
