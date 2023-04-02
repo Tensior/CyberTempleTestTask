@@ -11,6 +11,8 @@ namespace Core.Managers
         private bool _isGameEnd;
         private TileManager _tileManager;
         private CrystalManager _crystalManager;
+        private ScoreManager _scoreManager;
+        private UIManager _uiManager;
 
         private void Update()
         {
@@ -37,21 +39,31 @@ namespace Core.Managers
             {
                 Time.timeScale = 0f;
                 _isGameEnd = true;
+                _uiManager.SetGameEndActive(true);
             }
         }
 
         [Inject]
-        private void Inject(Player player, TileManager tileManager, CrystalManager crystalManager)
+        private void Inject(
+            Player player,
+            TileManager tileManager,
+            CrystalManager crystalManager,
+            ScoreManager scoreManager,
+            UIManager uiManager)
         {
             _player = player;
             _tileManager = tileManager;
             _crystalManager = crystalManager;
+            _scoreManager = scoreManager;
+            _uiManager =  uiManager;
         }
 
         private void ResetGame()
         {
-            _isGameEnd = false;
             Time.timeScale = 1f;
+            _isGameEnd = false;
+            _uiManager.SetGameEndActive(false);
+            _scoreManager.Reset();
             _player.Reset();
             _crystalManager.Reset();
             _tileManager.Reset();

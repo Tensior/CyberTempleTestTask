@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8274800241708878594}
   - component: {fileID: 8274800241708878595}
   - component: {fileID: 8274800241708878592}
+  - component: {fileID: 3008094452493523418}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -76,3 +77,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crystalSpawnRule: 1
   _blockSizeForCrystal: 5
+--- !u!114 &3008094452493523418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8274800241708878593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae78c01bfaaf44b4930e69252caf9da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

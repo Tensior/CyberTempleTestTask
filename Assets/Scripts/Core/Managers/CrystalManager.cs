@@ -76,7 +76,6 @@ namespace Core.Managers
 
         private void OnCrystalPicked(CrystalPickedSignal signal)
         {
-            Debug.Log("OnCrystalPicked");
             signal.Crystal.Dispose();
         }
 
