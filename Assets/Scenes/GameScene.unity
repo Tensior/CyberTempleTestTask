@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &41813923
+--- !u!1 &203016648
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,88 +131,72 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 41813925}
-  - component: {fileID: 41813924}
+  - component: {fileID: 203016652}
+  - component: {fileID: 203016651}
+  - component: {fileID: 203016650}
+  - component: {fileID: 203016649}
   m_Layer: 0
-  m_Name: TileManager
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &41813924
+--- !u!114 &203016649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41813923}
+  m_GameObject: {fileID: 203016648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b0613cfbb046f6b3288ecaa3fc1f83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _crystalSpawnRule: 0
+  _blockSizeForCrystal: 5
+--- !u!114 &203016650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203016648}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f673bc765f0b45ba93ba00864aab7008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startSize: 5
+  _startSize: 3
   _createTilesRefreshMS: 1000
   _removeTilesRefreshMS: 100
---- !u!4 &41813925
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41813923}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.012243, y: 3.960476, z: -13.084673}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &444041522
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 444041524}
-  - component: {fileID: 444041523}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &444041523
+--- !u!114 &203016651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444041522}
+  m_GameObject: {fileID: 203016648}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 031fb6ed63a04525b41f994f5b0dd2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &444041524
+--- !u!4 &203016652
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444041522}
+  m_GameObject: {fileID: 203016648}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07596412, y: -0.27176157, z: 1.058991}
+  m_LocalPosition: {x: -0.16029611, y: 0.26002854, z: 0.23410913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &646821213
 GameObject:
@@ -244,7 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a184805388c922a46beefd50d4d8accb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 2259114281946463227, guid: 562eee9e77d20ba4a9a3ba8a0b689089, type: 3}
+  _tilePrefab: {fileID: 6137227708794066197, guid: 562eee9e77d20ba4a9a3ba8a0b689089, type: 3}
+  _crystalPrefab: {fileID: 1385745864407502801, guid: 35fabe4c887777b4596b8637af263e55, type: 3}
 --- !u!114 &646821215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +441,7 @@ Transform:
   m_Children:
   - {fileID: 1503617480}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 45, y: 45, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -757,7 +742,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &1949234647
 MonoBehaviour:

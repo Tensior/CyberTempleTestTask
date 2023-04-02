@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Core
+namespace Core.Managers
 {
     public class GameManager : MonoBehaviour
     {

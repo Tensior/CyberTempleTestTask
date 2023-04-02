@@ -6,19 +6,17 @@ using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-namespace Core
+namespace Core.Managers
 {
     public class TileManager : MonoBehaviour
     {
-        //[SerializeField] private GameObject _tilePrefab;
         [SerializeField, Range(3, 9)] private int _startSize;
         [SerializeField] private int _createTilesRefreshMS = 1000;
         [SerializeField] private int _removeTilesRefreshMS = 100;
 
         private const int NTilesMax = 1000;
-        private readonly LinkedList<Transform> _activeTiles = new();
-        //private IObjectPool<GameObject> _tilePool;
-        private TilePool _tilePool;
+        private readonly LinkedList<Tile> _activeTiles = new();
+        private Tile.Factory _tileFactory;
         private Camera _camera;
         private GameSettings _gameSettings;
         private SignalBus _signalBus;
@@ -27,13 +25,6 @@ namespace Core
 
         private void Start()
         {
-            /*_tilePool = new ObjectPool<GameObject>(CreateTile, 
-                                                   OnTakeFromPool, 
-                                                   OnReturnedToPool,
-                                                   OnDestroyPoolObject,
-                                                   true,
-                                                   50);*/
-
             CreateBlock(_startSize, Direction.FORWARD);
             while (_camera.WorldToViewportPoint(_activeTiles.Last().transform.position).y < 1f && _activeTiles.Count < NTilesMax)
             {
@@ -48,16 +39,15 @@ namespace Core
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
-            _cancellationTokenSource.Dispose();
         }
 
         [Inject]
-        private void Inject(Camera gameCamera, GameSettings gameSettings, SignalBus signalBus, TilePool tilePool)
+        private void Inject(Camera gameCamera, GameSettings gameSettings, SignalBus signalBus, Tile.Factory tileFactory)
         {
             _camera = gameCamera;
             _gameSettings = gameSettings;
             _signalBus = signalBus;
-            _tilePool = tilePool;
+            _tileFactory = tileFactory;
         }
 
         private async void CreateNewTilesAsync(CancellationToken cancellationToken)
@@ -77,13 +67,8 @@ namespace Core
         {
             var nTilesToRemove = _startSize * _startSize;
             
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && _activeTiles.Count >= nTilesToRemove + 1)
             {
-                if (_activeTiles.Count < nTilesToRemove + 1)
-                {
-                    continue;
-                }
-                
                 var tile = _activeTiles.ElementAt(nTilesToRemove);
                 if (_camera.WorldToViewportPoint(tile.transform.position).y < 0.2f)
                 {
@@ -91,7 +76,7 @@ namespace Core
                     {
                         tile = _activeTiles.First();
                         _activeTiles.RemoveFirst();
-                        _tilePool.Despawn(tile);
+                        tile.Dispose();
                     }
 
                     nTilesToRemove = _gameSettings.PathWidth * _gameSettings.PathWidth;
@@ -127,7 +112,7 @@ namespace Core
             {
                 for (var j = 0; j < nTilesInRow; ++j)
                 {
-                    var tile = _tilePool.Spawn();
+                    var tile = _tileFactory.Create();
                     _activeTiles.AddLast(tile);
                     if (tilePosition != Vector3.zero)
                     {

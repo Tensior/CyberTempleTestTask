@@ -1,9 +1,12 @@
-﻿using UnityEngine;
-
-namespace Core
+﻿namespace Core
 {
     public class TileCreatedSignal
     {
-        public Transform Tile;
+        public Tile Tile;
+    }
+
+    public class CrystalPickedSignal
+    {
+        public Crystal Crystal;
     }
 }

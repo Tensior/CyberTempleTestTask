@@ -1,4 +1,5 @@
 using Core;
+using Core.Managers;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,8 @@ namespace Installers
 {
     public class GameInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _tilePrefab;
+        [SerializeField] private Tile _tilePrefab;
+        [SerializeField] private Crystal _crystalPrefab;
 
         public override void InstallBindings()
         {
@@ -16,12 +18,17 @@ namespace Installers
             
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<TileCreatedSignal>();
+            Container.DeclareSignal<CrystalPickedSignal>();
+
+            Container.BindFactory<Tile, Tile.Factory>()
+                .FromMonoPoolableMemoryPool(x => x.WithInitialSize(50)
+                                                .FromComponentInNewPrefab(_tilePrefab)
+                                                .UnderTransformGroup("Tiles"));
             
-            //Container.BindMemoryPool<GameObject, TilePool>().AsSingle().NonLazy()/*.WithInitialSize(50)*/;
-            Container.BindMemoryPool<Transform, TilePool>()
-                .WithInitialSize(50)
-                .FromComponentInNewPrefab(_tilePrefab)
-                .UnderTransformGroup("Tiles");
+            Container.BindFactory<Tile, Crystal, Crystal.Factory>()
+                .FromMonoPoolableMemoryPool(x => x.WithInitialSize(10)
+                                                .FromComponentInNewPrefab(_crystalPrefab)
+                                                .UnderTransformGroup("Crystals"));
         }
     }
 }
