@@ -8,12 +8,14 @@ namespace Core
     {
         public Crystal Crystal { get; set; }
 
+        private readonly Vector3 _defaultPosition = new (0, -1.5f, 0);
         private IMemoryPool _pool;
 
         public void OnSpawned(IMemoryPool pool)
         {
             _pool = pool;
             gameObject.SetActive(true);
+            transform.position = _defaultPosition;
         }
 
         public void OnDespawned()

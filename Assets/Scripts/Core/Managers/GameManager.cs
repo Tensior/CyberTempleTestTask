@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Core.Managers
@@ -11,11 +9,8 @@ namespace Core.Managers
         
         private Player _player;
         private bool _isGameEnd;
-
-        private void Start()
-        {
-            Time.timeScale = 1f;
-        }
+        private TileManager _tileManager;
+        private CrystalManager _crystalManager;
 
         private void Update()
         {
@@ -34,7 +29,7 @@ namespace Core.Managers
                 }
                 else
                 {
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    ResetGame();
                 }
             }
 
@@ -46,9 +41,20 @@ namespace Core.Managers
         }
 
         [Inject]
-        private void Inject(Player player)
+        private void Inject(Player player, TileManager tileManager, CrystalManager crystalManager)
         {
             _player = player;
+            _tileManager = tileManager;
+            _crystalManager = crystalManager;
+        }
+
+        private void ResetGame()
+        {
+            _isGameEnd = false;
+            Time.timeScale = 1f;
+            _player.Reset();
+            _crystalManager.Reset();
+            _tileManager.Reset();
         }
     }
 }

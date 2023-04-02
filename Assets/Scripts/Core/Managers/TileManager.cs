@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,23 +23,37 @@ namespace Core.Managers
         private SignalBus _signalBus;
         private float _tileSize;
         private CancellationTokenSource _cancellationTokenSource;
+        private Vector3 _defaultCameraPosition;
 
         private void Start()
         {
+            Reset();
+        }
+
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
+        public void Reset()
+        {
+            foreach (var tile in _activeTiles)
+            {
+                tile.Dispose();
+            }
+            _activeTiles.Clear();
+
+            _camera.transform.position = _defaultCameraPosition;
             CreateBlock(_startSize, Direction.FORWARD);
             while (_camera.WorldToViewportPoint(_activeTiles.Last().transform.position).y < 1f && _activeTiles.Count < NTilesMax)
             {
                 CreateBlock(_gameSettings.PathWidth, (Direction)Random.Range((int)Direction.FORWARD, (int)(Direction.RIGHT + 1)));
             }
 
+            _cancellationTokenSource?.Cancel();
             _cancellationTokenSource = new CancellationTokenSource();
             CreateNewTilesAsync(_cancellationTokenSource.Token);
             RemoveOldTilesAsync(_cancellationTokenSource.Token);
-        }
-
-        private void OnDestroy()
-        {
-            _cancellationTokenSource.Cancel();
         }
 
         [Inject]
@@ -48,6 +63,8 @@ namespace Core.Managers
             _gameSettings = gameSettings;
             _signalBus = signalBus;
             _tileFactory = tileFactory;
+
+            _defaultCameraPosition = _camera.transform.position;
         }
 
         private async void CreateNewTilesAsync(CancellationToken cancellationToken)
@@ -59,7 +76,14 @@ namespace Core.Managers
                     CreateBlock(_gameSettings.PathWidth, (Direction)Random.Range((int)Direction.FORWARD, (int)(Direction.RIGHT + 1)));
                 }
 
-                await Task.Delay(_createTilesRefreshMS);
+                try
+                {
+                    await Task.Delay(_createTilesRefreshMS, cancellationToken);
+                }
+                catch (Exception _)
+                {
+                    // ignored
+                }
             }
         }
         
@@ -82,7 +106,14 @@ namespace Core.Managers
                     nTilesToRemove = _gameSettings.PathWidth * _gameSettings.PathWidth;
                 }
 
-                await Task.Delay(_removeTilesRefreshMS);
+                try
+                {
+                    await Task.Delay(_removeTilesRefreshMS, cancellationToken);
+                }
+                catch (Exception _)
+                {
+                    // ignored
+                }
             }
         }
 

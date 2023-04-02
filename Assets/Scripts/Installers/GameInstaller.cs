@@ -14,6 +14,8 @@ namespace Installers
         {
             Container.Bind<Player>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<TileManager>().FromComponentInHierarchy().AsSingle().NonLazy();
+            Container.Bind<CrystalManager>().FromComponentInHierarchy().AsSingle().NonLazy();
             Container.Bind<Camera>().FromComponentInHierarchy().AsSingle().NonLazy();
             
             SignalBusInstaller.Install(Container);

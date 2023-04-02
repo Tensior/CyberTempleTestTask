@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031fb6ed63a04525b41f994f5b0dd2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathZoneY: -1
 --- !u!114 &8274800241708878595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startSize: 3
-  _createTilesRefreshMS: 1000
+  _createTilesRefreshMS: 100
   _removeTilesRefreshMS: 100
 --- !u!114 &8274800241708878592
 MonoBehaviour:

@@ -11,12 +11,13 @@ namespace Core.Managers
         
         private SignalBus _signalBus;
         private List<Tile> _tilesBuffer;
-        private int _orderedSpawnIndex = 0;
+        private int _orderedSpawnIndex;
         private Crystal.Factory _crystalFactory;
 
         private void Start()
         {
             _tilesBuffer = new List<Tile>(_blockSizeForCrystal);
+            Reset();
             _signalBus.Subscribe<TileCreatedSignal>(OnTileCreated);
             _signalBus.Subscribe<CrystalPickedSignal>(OnCrystalPicked);
         }
@@ -25,6 +26,12 @@ namespace Core.Managers
         {
             _signalBus.Unsubscribe<TileCreatedSignal>(OnTileCreated);
             _signalBus.Unsubscribe<CrystalPickedSignal>(OnCrystalPicked);
+        }
+
+        public void Reset()
+        {
+            _tilesBuffer.Clear();
+            _orderedSpawnIndex = _blockSizeForCrystal - 1;
         }
 
         [Inject]

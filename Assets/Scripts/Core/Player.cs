@@ -6,6 +6,7 @@ namespace Core
 {
     public class Player : MonoBehaviour
     {
+        private Vector3 _startPosition;
         private Direction _direction;
         private Rigidbody _rigidBody;
         private Vector3 _velocityNormalized;
@@ -38,6 +39,7 @@ namespace Core
         private void Awake()
         {
             _rigidBody = GetComponent<Rigidbody>();
+            _startPosition = transform.position;
         }
 
         private void FixedUpdate()
@@ -46,6 +48,12 @@ namespace Core
             var horizontalVelocity = _velocity * _velocityNormalized;
             _rigidBody.velocity = new Vector3(horizontalVelocity.x, velocityY, horizontalVelocity.z);
 
+        }
+
+        public void Reset()
+        {
+            transform.position = _startPosition;
+            Direction = Direction.NONE;
         }
 
         [Inject]
