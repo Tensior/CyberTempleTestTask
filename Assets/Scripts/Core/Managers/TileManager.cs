@@ -100,7 +100,7 @@ namespace Core.Managers
                     {
                         tile = _activeTiles.First();
                         _activeTiles.RemoveFirst();
-                        tile.Dispose();
+                        tile.DisposeAfterFalling();
                     }
 
                     nTilesToRemove = _gameSettings.PathWidth * _gameSettings.PathWidth;

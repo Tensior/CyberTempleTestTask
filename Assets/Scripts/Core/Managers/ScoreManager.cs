@@ -37,7 +37,7 @@ namespace Core.Managers
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _signalBus.Unsubscribe<CrystalPickedSignal>(OnCrystalPicked);
         }
 
         private void OnCrystalPicked()
