@@ -11,7 +11,7 @@ namespace Core.Managers
         
         private SignalBus _signalBus;
         private List<Tile> _tilesBuffer;
-        private int _orderedSpawnIndex;
+        private int _orderedSpawnIndex = 0;
         private Crystal.Factory _crystalFactory;
 
         private void Start()
@@ -48,11 +48,18 @@ namespace Core.Managers
                 case CrystalSpawnRule.RANDOM:
                 {
                     var tile = _tilesBuffer[Random.Range(0, _tilesBuffer.Count)];
-                    var crystal = _crystalFactory.Create(tile);
+                    _crystalFactory.Create(tile);
                     break;
                 }
                 case CrystalSpawnRule.ORDERED:
                 {
+                    var tile = _tilesBuffer[_orderedSpawnIndex];
+                    _crystalFactory.Create(tile);
+                    ++_orderedSpawnIndex;
+                    if (_orderedSpawnIndex >= _blockSizeForCrystal)
+                    {
+                        _orderedSpawnIndex = 0;
+                    }
                     break;
                 }
             }
