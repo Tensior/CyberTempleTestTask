@@ -6,7 +6,7 @@ namespace Core
 {
     public class Crystal : MonoBehaviour, IPoolable<Tile, IMemoryPool>, IDisposable
     {
-        public Tile Tile { get; set; }
+        private Tile Tile { get; set; }
         
         private SignalBus _signalBus;
         private IMemoryPool _pool;

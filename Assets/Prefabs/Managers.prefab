@@ -63,6 +63,7 @@ MonoBehaviour:
   _startSize: 3
   _createTilesRefreshMS: 100
   _removeTilesRefreshMS: 100
+  _nTilesToRemoveAtOnce: 1
 --- !u!114 &8274800241708878592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,3 +90,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae78c01bfaaf44b4930e69252caf9da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreText: {fileID: 0}
+  _gameEndTextObject: {fileID: 0}

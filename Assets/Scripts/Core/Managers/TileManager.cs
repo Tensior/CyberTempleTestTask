@@ -12,8 +12,9 @@ namespace Core.Managers
     public class TileManager : MonoBehaviour
     {
         [SerializeField, Range(3, 9)] private int _startSize;
-        [SerializeField] private int _createTilesRefreshMS = 1000;
+        [SerializeField] private int _createTilesRefreshMS = 100;
         [SerializeField] private int _removeTilesRefreshMS = 100;
+        [SerializeField] private int _nTilesToRemoveAtOnce = 1;
 
         private const int NTilesMax = 1000;
         private readonly LinkedList<Tile> _activeTiles = new();
@@ -89,21 +90,17 @@ namespace Core.Managers
         
         private async void RemoveOldTilesAsync(CancellationToken cancellationToken)
         {
-            var nTilesToRemove = _startSize * _startSize;
-            
-            while (!cancellationToken.IsCancellationRequested && _activeTiles.Count >= nTilesToRemove + 1)
+            while (!cancellationToken.IsCancellationRequested && _activeTiles.Count >= _nTilesToRemoveAtOnce + 1)
             {
-                var tile = _activeTiles.ElementAt(nTilesToRemove);
+                var tile = _activeTiles.ElementAt(_nTilesToRemoveAtOnce);
                 if (_camera.WorldToViewportPoint(tile.transform.position).y < 0.2f)
                 {
-                    for (int i = 0; i < nTilesToRemove; i++)
+                    for (int i = 0; i < _nTilesToRemoveAtOnce; i++)
                     {
                         tile = _activeTiles.First();
                         _activeTiles.RemoveFirst();
                         tile.DisposeAfterFalling();
                     }
-
-                    nTilesToRemove = _gameSettings.PathWidth * _gameSettings.PathWidth;
                 }
 
                 try

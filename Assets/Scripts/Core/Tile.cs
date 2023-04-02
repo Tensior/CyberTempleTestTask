@@ -9,8 +9,8 @@ namespace Core
     {
         [SerializeField] private float _fallSpeed = 3;
         [SerializeField] private float _fallTimeSeconds = 3;
-
-        private readonly Vector3 _defaultPosition = new (0, -1.5f, 0);
+        [SerializeField] private Vector3 _defaultPosition = new (0, -1.5f, 0);
+        
         private IMemoryPool _pool;
         private Coroutine _fallingCoroutine;
         
